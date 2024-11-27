@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+    overflow-x: hidden;
+}
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #363434;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #716f6f;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+  .split {
+    display: flex;
+    flex-direction: row;
+}
+
+.gutter {
+     opacity:1;
+ 
+    background-repeat: no-repeat;
+    background-position: 50%;
+}
+.gutter:hover{
+    background-color: #2d4aee;
+    opacity:1;
+}
+.gutter.gutter-horizontal {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
+    cursor: col-resize;
+}
+.gutter.gutter-vertical {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAFAQMAAABo7865AAAABlBMVEVHcEzMzMzyAv2sAAAAAXRSTlMAQObYZgAAABBJREFUeF5jOAMEEAIEEFwAn3kMwcB6I2AAAAAASUVORK5CYII=');
+    cursor: row-resize;
+}
+ 

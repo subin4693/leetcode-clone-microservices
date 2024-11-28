@@ -46,6 +46,19 @@ const Navbar = () => {
               Contest
             </NavLink>
           </li>
+
+          <li>
+            <NavLink
+              to="/dashboard"
+              className={({ isActive }) =>
+                isActive
+                  ? "hover:text-white  cursor-pointer  text-white  border-b py-3 border-b-[2px]"
+                  : " text-slate-300 hover:text-white  cursor-pointer "
+              }
+            >
+              Dashboard
+            </NavLink>
+          </li>
         </ul>
         <div>
           {isLogin ? (

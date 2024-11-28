@@ -1,5 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Contests, Home, ProblemSet, Signin, Signup, Workspace } from "./pages";
+import {
+  Contests,
+  CreateNewContexts,
+  CreateNewProblem,
+  Dashboard,
+  Home,
+  ProblemSet,
+  Signin,
+  Signup,
+  Workspace,
+} from "./pages";
 
 import Layout from "./Layouts/layout";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -33,6 +43,18 @@ const App = () => {
         {
           path: "/contests",
           element: <Contests />,
+        },
+        {
+          path: "/create-contest",
+          element: <CreateNewContexts />,
+        },
+        {
+          path: "/create-problem",
+          element: <CreateNewProblem />,
+        },
+        {
+          path: "/dashboard",
+          element: <Dashboard />,
         },
       ],
     },

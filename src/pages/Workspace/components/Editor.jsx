@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import CodeMirror from "@uiw/react-codemirror";
-import { vscodeDark, vscodeDarkInit } from "@uiw/codemirror-theme-vscode";
+import { vscodeDark } from "@uiw/codemirror-theme-vscode";
 import { javascript } from "@codemirror/lang-javascript";
 
 const Editor = ({ code, setCode }) => {

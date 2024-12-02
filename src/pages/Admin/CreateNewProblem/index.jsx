@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { FileUploader } from "react-drag-drop-files";
 import ReactQuill from "react-quill";
+import { vscodeDark } from "@uiw/codemirror-theme-vscode";
+import { javascript } from "@codemirror/lang-javascript";
 import "react-quill/dist/quill.snow.css";
-import GetInput from "./components/GetInput";
-
+import CodeMirror from "@uiw/react-codemirror";
 const CreateProblem = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [examples, setExamples] = useState([]);
   const [constraints, setConstraints] = useState([]);
   const [testCases, setTestCases] = useState(null);
+  const [code, setCode] = useState("");
 
   const fileTypes = ["JSON"];
 
@@ -153,6 +155,20 @@ const CreateProblem = () => {
             className="w-full h-20 bg-stone-700 border border-dashed block cursor-pointer flex justify-center items-center rounded-md"
           />
         </div>
+
+        <div className="space-y-2">
+          <h2 className="text-xl font-bold">Starter Template</h2>
+          <CodeMirror
+            value={code}
+            theme={vscodeDark}
+            className="max-h-[50vh] min -h-[50vh] bg-[#1e1e1e] rounded overflow-hidden border overflow-y-auto"
+            extensions={[javascript()]}
+            onChange={(value, viewUpdate) => {
+              setCode(value);
+            }}
+          />
+        </div>
+
         <button
           type="submit"
           className=" w-full bg-orange-500 text- py-1 rounded-md"

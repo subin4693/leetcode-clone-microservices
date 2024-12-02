@@ -49,6 +49,7 @@ const Contests = () => {
         "https://framerusercontent.com/images/8NIvRumTIMfeFXK5KslQVmXZE.webp",
       title: "Weekly contest 124",
       date: "2000-10-31T01:30:00.000-05:00",
+      time: "01:01",
     },
     {
       _id: "sdf",
@@ -56,6 +57,7 @@ const Contests = () => {
         "https://framerusercontent.com/images/8NIvRumTIMfeFXK5KslQVmXZE.webp",
       title: "Weekly contest 124",
       date: "2000-10-31T01:30:00.000-05:00",
+      time: "01:01",
     },
     {
       _id: "sdf",
@@ -63,6 +65,7 @@ const Contests = () => {
         "https://framerusercontent.com/images/8NIvRumTIMfeFXK5KslQVmXZE.webp",
       title: "Weekly contest 124",
       date: "2000-10-31T01:30:00.000-05:00",
+      time: "01:01",
     },
   ]);
 
@@ -70,13 +73,14 @@ const Contests = () => {
     <div>
       <Banner />
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 my-5 ">
-        {contests.map(({ _id, image, title, date }) => {
+        {contests.map(({ _id, image, title, date, time }) => {
           return (
             <ContestCard
               key={_id}
               image={image}
               title={title}
               date={date}
+              time={time}
               _id={_id}
             />
           );
@@ -87,7 +91,7 @@ const Contests = () => {
           Past contests
         </div>
         <div className="mt-5 space-y-3">
-          {pastContests.map(({ _id, image, title, date }) => {
+          {pastContests.map(({ _id, image, title, date, time }) => {
             return (
               <PastContestCard
                 key={_id}

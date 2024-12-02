@@ -2,7 +2,7 @@ import React from "react";
 // import profile from "../../assets/profile.jpg";
 import profile from "../../../assets/profile.jpg";
 
-const Topbar = () => {
+const Topbar = ({ isContest, duration }) => {
   return (
     <div className="flex gap-5 justify-between items-center ">
       <div className="flex gap-5 justify-between items-center">
@@ -95,6 +95,7 @@ const Topbar = () => {
           </svg>
           Submit
         </buton>
+        {isContest && <div>Timer</div>}
       </div>
       <div>
         <div className="flex justify-center items-center gap-2">

@@ -11,8 +11,9 @@ const CreateProblem = () => {
   const [examples, setExamples] = useState([]);
   const [constraints, setConstraints] = useState([]);
   const [testCases, setTestCases] = useState(null);
-  const [code, setCode] = useState("");
-
+  const [code, setCode] = useState(`function /*function name*/(/*arguments*/){
+    //Write codes here
+}`);
   const fileTypes = ["JSON"];
 
   const handleChange = (file) => {
@@ -21,6 +22,14 @@ const CreateProblem = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log({
+      title: title,
+      description: description,
+      examples: examples,
+      constraints: constraints,
+      testCases: testCases,
+      code: code,
+    });
   };
 
   return (

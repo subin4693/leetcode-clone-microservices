@@ -217,7 +217,7 @@ const Dashboard = () => {
       <div>
         <div className="flex justify-between mt-10">
           <h2 className="font-bold text-xl">Total contests</h2>
-          <Link to="/create-problem">
+          <Link to="/create-contest">
             <button className="bg-orange-500 rounded-md px-2 py-1 hover:bg-orange-400 text-sm">
               Create contest
             </button>

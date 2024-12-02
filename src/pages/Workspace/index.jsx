@@ -41,11 +41,13 @@ const Workspace = () => {
     ],
     followup:
       "Can you come up with an algorithm that is less than O(n2) time complexity?",
+    isContest: true,
+    duration: 2,
   });
 
   return (
     <section className="bg-stone-900 min-h-screen text-white p-3 overflow-hidde">
-      <Topbar />
+      <Topbar isContests={problem?.isContest} duration={problem?.duration} />
       <div className="flex mt-3 overflow-y-hidde">
         <Split className="split w-full">
           <Problem

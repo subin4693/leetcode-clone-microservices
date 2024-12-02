@@ -11,8 +11,8 @@ const ProtectedRoute = ({ children }) => {
   if (isLogedin == null) {
     return <p>Loading....</p>;
   }
-
-  return <>{isLogedin ? children : <Navigate to="/signin" />}</>;
+  return children;
+  // return <>{isLogedin ? children : <Navigate to="/signin" />}</>;
 };
 
 export default ProtectedRoute;

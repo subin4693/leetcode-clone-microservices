@@ -47,4 +47,15 @@ body{
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAFAQMAAABo7865AAAABlBMVEVHcEzMzMzyAv2sAAAAAXRSTlMAQObYZgAAABBJREFUeF5jOAMEEAIEEFwAn3kMwcB6I2AAAAAASUVORK5CYII=');
     cursor: row-resize;
 }
+ .ql-toolbar  {
+  background-color: white;
+
+ }
+.bnMgxQ{
+  border: dashed 2px #554a4a !important;
+width: 100% !important;
+max-width: 100% !important;
+height: 4rem !important;
+
+}
  

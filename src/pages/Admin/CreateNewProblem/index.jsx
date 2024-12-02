@@ -1,223 +1,167 @@
 import React, { useState } from "react";
+import { FileUploader } from "react-drag-drop-files";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import GetInput from "./components/GetInput";
 
-const CreateNewProblem = () => {
+const CreateProblem = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [difficulty, setDifficulty] = useState("");
   const [examples, setExamples] = useState([]);
   const [constraints, setConstraints] = useState([]);
-  const [testCases, setTestCases] = useState([]);
-  const [tempConstraint, setTempConstraint] = useState("");
+  const [testCases, setTestCases] = useState(null);
 
+  const fileTypes = ["JSON"];
+
+  const handleChange = (file) => {
+    console.log(file);
+    setTestCases(file);
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    console.log({
-      title,
-      description,
-      difficulty,
-      examples,
-      constraints,
-      testCases,
-    });
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-stone-900">
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-col gap-4 p-6 bg-stone-800  shadow-md rounded-md w-full max-w-2xl"
-      >
-        <h1 className="text-2xl font-semibold text-center">
-          Create New Problem
-        </h1>
-
+    <div className="flex  justify-center  items-center">
+      <form className="w-full sm:w-2/3 space-y-3 py-10" onSubmit={handleSubmit}>
         <div>
-          <label className="block font-medium">Title:</label>
+          <label className="text-xl font-bold">Title</label>
+          <br />
           <input
             type="text"
+            className="bg-stone-700 rounded-md mt-1 w-full p-1"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="w-full border border-gray-900 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 bg-stone-900"
-            placeholder="Enter the title"
           />
         </div>
-
         <div>
-          <label className="block font-medium">Description:</label>
-          <textarea
+          <label className="text-xl font-bold">Description</label>
+          <br />
+          <ReactQuill
+            theme="snow"
             value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            className="w-full border border-gray-900 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400  bg-stone-900"
-            placeholder="Enter the problem description"
+            className="bg-stone-700"
+            onChange={setDescription}
           />
         </div>
-
         <div>
-          <label className="block font-medium">Difficulty:</label>
-          <select
-            className="w-full border border-gray-900 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-ornage-400  bg-stone-900"
-            value={difficulty}
-            onChange={(e) => setDifficulty(e.target.value)}
-          >
-            <option value="">Select Difficulty</option>
-            <option value="easy">Easy</option>
-            <option value="medium">Medium</option>
-            <option value="hard">Hard</option>
-          </select>
-        </div>
+          <label className="text-xl font-bold">Examples</label>
+          <br />
+          {examples.map(({ input, output, explanation }, index) => {
+            return (
+              <React.Fragment key={index}>
+                <label className="font-bold">Example {index + 1}</label>
+                <div className="mt-2">
+                  <label className="text-md">Input &nbsp;&nbsp;</label>
+                  <textarea
+                    className="bg-stone-700 w-full mt-2"
+                    value={input}
+                    onChange={(e) => {
+                      setExamples((prev) => {
+                        const temp = [...prev];
+                        temp[index].input = e.target.value;
+                        return temp;
+                      });
+                    }}
+                  />
+                </div>
+                <div className="  mt-2">
+                  <label className="text-md">Output &nbsp;&nbsp;</label>
+                  <textarea
+                    className="bg-stone-700 w-full mt-2 "
+                    value={output}
+                    onChange={(e) => {
+                      setExamples((prev) => {
+                        const temp = [...prev];
+                        temp[index].output = e.target.value;
+                        return temp;
+                      });
+                    }}
+                  />
+                </div>
+                <div className="  mt-2">
+                  <label className="text-md">Explanation &nbsp;&nbsp;</label>
+                  <textarea
+                    className="bg-stone-700 w-full mt-2 "
+                    value={explanation}
+                    onChange={(e) => {
+                      setExamples((prev) => {
+                        const temp = [...prev];
+                        temp[index].explanation = e.target.value;
+                        return temp;
+                      });
+                    }}
+                  />
+                </div>
+              </React.Fragment>
+            );
+          })}
 
-        <div>
-          <label className="block font-medium">Examples:</label>
-          {examples.map(({ input, output, explanation }, index) => (
-            <div
-              key={index}
-              className="border rounded-md p-3 mb-2 bg-stone-800 border-gray-900"
-            >
-              <div>
-                <label>Input:</label>
-                <textarea
-                  value={input}
-                  onChange={(e) =>
-                    setExamples((prev) =>
-                      prev.map((ex, i) =>
-                        i === index ? { ...ex, input: e.target.value } : ex
-                      )
-                    )
-                  }
-                  className="w-full border border-gray-900 rounded-md px-2 py-1 mb-2  bg-stone-900"
-                />
-              </div>
-              <div>
-                <label>Output:</label>
-                <textarea
-                  value={output}
-                  onChange={(e) =>
-                    setExamples((prev) =>
-                      prev.map((ex, i) =>
-                        i === index ? { ...ex, output: e.target.value } : ex
-                      )
-                    )
-                  }
-                  className="w-full border border-gray-900 rounded-md px-2 py-1 mb-2  bg-stone-900"
-                />
-              </div>
-              <div>
-                <label>Explanation:</label>
-                <textarea
-                  value={explanation}
-                  onChange={(e) =>
-                    setExamples((prev) =>
-                      prev.map((ex, i) =>
-                        i === index
-                          ? { ...ex, explanation: e.target.value }
-                          : ex
-                      )
-                    )
-                  }
-                  className="w-full border border-gray-900 rounded-md px-2 py-1 mb-2  bg-stone-900"
-                />
-              </div>
-            </div>
-          ))}
           <button
             type="button"
-            onClick={() =>
+            onClick={() => {
               setExamples((prev) => [
                 ...prev,
-                { input: "", output: "", explanation: "" },
-              ])
-            }
-            className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                {
+                  input: "",
+                  output: "",
+                  explanation: "",
+                },
+              ]);
+            }}
+            className="text-center bg-white hover:bg-orange-500 w-full rounded-md text-black py-1"
           >
-            Add Example
+            Add
           </button>
         </div>
-
-        <div>
-          <label className="block font-medium">Constraints:</label>
-          <div className="flex gap-2">
-            <input
-              type="text"
-              value={tempConstraint}
-              onChange={(e) => setTempConstraint(e.target.value)}
-              className="w-full border border-gray-300 rounded-md px-3 py-2"
-              placeholder="Enter a constraint"
-            />
-            <button
-              type="button"
-              onClick={() => {
-                if (tempConstraint) {
-                  setConstraints((prev) => [...prev, tempConstraint]);
-                  setTempConstraint("");
+        <div className="space-y-2">
+          <h2 className="text-xl font-bold">Constraints</h2>
+          {constraints.map((val, index) => {
+            return (
+              <input
+                type="text"
+                value={val}
+                className="bg-stone-700 rounded-md mt-1 w-full p-1"
+                key={index}
+                onChange={(e) =>
+                  setConstraints((prev) => {
+                    const temp = [...prev];
+                    temp[index] = e.target.value;
+                    return temp;
+                  })
                 }
-              }}
-              className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-            >
-              Add
-            </button>
-          </div>
-          <ul className="mt-2 list-disc list-inside">
-            {constraints.map((constraint, index) => (
-              <li key={index}>{constraint}</li>
-            ))}
-          </ul>
-        </div>
-
-        <div>
-          <label className="block font-medium">Test Cases:</label>
-          {testCases.map(({ input, output }, index) => (
-            <div key={index} className="border rounded-md p-3 mb-2 bg-gray-50">
-              <div>
-                <label>Input:</label>
-                <textarea
-                  value={input}
-                  onChange={(e) =>
-                    setTestCases((prev) =>
-                      prev.map((tc, i) =>
-                        i === index ? { ...tc, input: e.target.value } : tc
-                      )
-                    )
-                  }
-                  className="w-full border border-gray-300 rounded-md px-2 py-1 mb-2"
-                />
-              </div>
-              <div>
-                <label>Output:</label>
-                <textarea
-                  value={output}
-                  onChange={(e) =>
-                    setTestCases((prev) =>
-                      prev.map((tc, i) =>
-                        i === index ? { ...tc, output: e.target.value } : tc
-                      )
-                    )
-                  }
-                  className="w-full border border-gray-300 rounded-md px-2 py-1"
-                />
-              </div>
-            </div>
-          ))}
+              />
+            );
+          })}
           <button
             type="button"
-            onClick={() =>
-              setTestCases((prev) => [...prev, { input: "", output: "" }])
-            }
-            className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+            onClick={() => {
+              setConstraints((prev) => [...prev, ""]);
+            }}
+            className="text-center bg-white hover:bg-orange-500 w-full rounded-md text-black py-1"
           >
-            Add Test Case
+            Add
           </button>
         </div>
-
+        <div className="space-y-2">
+          <h2 className="text-xl font-bold">Testcases</h2>
+          <label>Select testcase file : </label>{" "}
+          <FileUploader
+            handleChange={handleChange}
+            name="file"
+            types={fileTypes}
+            className="w-full h-20 bg-stone-700 border border-dashed block cursor-pointer flex justify-center items-center rounded-md"
+          />
+        </div>
         <button
           type="submit"
-          className="px-6 py-3 bg-green-500 text-white rounded-md hover:bg-green-600"
+          className=" w-full bg-orange-500 text- py-1 rounded-md"
         >
-          Submit Problem
+          Save
         </button>
       </form>
     </div>
   );
 };
 
-export default CreateNewProblem;
+export default CreateProblem;

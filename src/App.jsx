@@ -5,6 +5,7 @@ import {
   CreateNewProblem,
   Dashboard,
   Home,
+  LeaderBoard,
   ProblemSet,
   Signin,
   Signup,
@@ -55,6 +56,10 @@ const App = () => {
         {
           path: "/dashboard",
           element: <Dashboard />,
+        },
+        {
+          path: "/leaderboard",
+          element: <LeaderBoard />,
         },
       ],
     },

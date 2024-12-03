@@ -11,6 +11,7 @@ const CreateProblem = () => {
   const [examples, setExamples] = useState([]);
   const [constraints, setConstraints] = useState([]);
   const [testCases, setTestCases] = useState(null);
+  const [points, setPoints] = useState("");
   const [starterCode, setStarterCode] =
     useState(`function /*function name*/(/*arguments*/){
     //Write codes here
@@ -178,7 +179,17 @@ const CreateProblem = () => {
             }}
           />
         </div>
-
+        <div>
+          <label className="text-xl font-bold">Total Points</label>
+          <br />
+          <input
+            type="number"
+            min="0"
+            className="bg-stone-700 rounded-md mt-1 w-full p-1"
+            value={points}
+            onChange={(e) => setPoints(e.target.value)}
+          />
+        </div>
         <button
           type="submit"
           className=" w-full bg-orange-500 text- py-1 rounded-md"

@@ -214,7 +214,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <div>
+      {/* <div>
         <div className="flex justify-between mt-10">
           <h2 className="font-bold text-xl">Total contests</h2>
           <Link to="/create-contest">
@@ -249,7 +249,7 @@ const Dashboard = () => {
             );
           })}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

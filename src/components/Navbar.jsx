@@ -19,8 +19,6 @@ const Navbar = () => {
             >
               Home
             </NavLink>
-
-            {/* <Link to="/">Home</Link> */}
           </li>
           <li>
             <NavLink
@@ -34,7 +32,7 @@ const Navbar = () => {
               Problems
             </NavLink>
           </li>
-          <li>
+          {/* <li>
             <NavLink
               to="/contests"
               className={({ isActive }) =>
@@ -45,7 +43,7 @@ const Navbar = () => {
             >
               Contest
             </NavLink>
-          </li>
+          </li> */}
 
           <li>
             <NavLink
@@ -57,6 +55,19 @@ const Navbar = () => {
               }
             >
               Dashboard
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink
+              to="/leaderboard"
+              className={({ isActive }) =>
+                isActive
+                  ? "hover:text-white  cursor-pointer  text-white  border-b py-3 border-b-[2px]"
+                  : " text-slate-300 hover:text-white  cursor-pointer "
+              }
+            >
+              Leaderboard
             </NavLink>
           </li>
         </ul>

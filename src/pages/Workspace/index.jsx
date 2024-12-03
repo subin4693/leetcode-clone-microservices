@@ -9,7 +9,7 @@ const Workspace = () => {
 
   const [problem, setProblem] = useState({
     title: "1. Two Sum",
-    description: `<p>Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+    description: `<p>Given an <strong>array</strong> of integers nums and an integer target, return indices of the two numbers such that they add up to target.
     <br /><br />
                   You may assume that each input would have exactly one solution, and you may not use the same element twice.<br /><br />
                   You can return the answer in any order.</p>`,
@@ -41,13 +41,13 @@ const Workspace = () => {
     ],
     followup:
       "Can you come up with an algorithm that is less than O(n2) time complexity?",
-    isContest: true,
+    isContest: false,
     duration: 2,
   });
 
   return (
     <section className="bg-stone-900 min-h-screen text-white p-3 overflow-hidde">
-      <Topbar isContests={problem?.isContest} duration={problem?.duration} />
+      <Topbar isContest={problem?.isContest} duration={problem?.duration} />
       <div className="flex mt-3 overflow-y-hidde">
         <Split className="split w-full">
           <Problem

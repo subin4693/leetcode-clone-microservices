@@ -11,7 +11,8 @@ const CreateProblem = () => {
   const [examples, setExamples] = useState([]);
   const [constraints, setConstraints] = useState([]);
   const [testCases, setTestCases] = useState(null);
-  const [code, setCode] = useState(`function /*function name*/(/*arguments*/){
+  const [starterCode, setStarterCode] =
+    useState(`function /*function name*/(/*arguments*/){
     //Write codes here
 }`);
   const fileTypes = ["JSON"];
@@ -28,7 +29,7 @@ const CreateProblem = () => {
       examples: examples,
       constraints: constraints,
       testCases: testCases,
-      code: code,
+      starterCode: starterCode,
     });
   };
 
@@ -168,12 +169,12 @@ const CreateProblem = () => {
         <div className="space-y-2">
           <h2 className="text-xl font-bold">Starter Template</h2>
           <CodeMirror
-            value={code}
+            value={starterCode}
             theme={vscodeDark}
             className="max-h-[50vh] min -h-[50vh] bg-[#1e1e1e] rounded overflow-hidden border overflow-y-auto"
             extensions={[javascript()]}
             onChange={(value, viewUpdate) => {
-              setCode(value);
+              setStarterCode(value);
             }}
           />
         </div>

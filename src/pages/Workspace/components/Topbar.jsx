@@ -1,13 +1,53 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // import profile from "../../assets/profile.jpg";
 import profile from "../../../assets/profile.jpg";
+import { Link } from "react-router-dom";
 
 const Topbar = ({ isContest, duration }) => {
+  console.log(duration);
+  const [timer, setTimer] = useState([duration, 0, 0]);
+  useEffect(() => {
+    if (!isContest) return;
+    let timerInterval = setInterval(() => {
+      setTimer((prev) => {
+        let [hour, minute, second] = [...prev];
+
+        if (second == 0 && minute == 0 && hour == 0) {
+          clearInterval(timerInterval);
+          return [0, 0, 0];
+        }
+
+        if (second == 0 && minute == 0 && hour > 0) {
+          second = 59;
+          minute = 59;
+          hour--;
+        }
+        if (second == 0 && minute > 0) {
+          second = 59;
+          minute--;
+        }
+        if (second == 0) {
+          second = 59;
+        }
+        if (second > 0) {
+          second--;
+        }
+
+        return [hour, minute, second];
+      });
+    }, 1000);
+    return () => {
+      clearInterval(timerInterval);
+    };
+  }, []);
+  console.log(timer);
   return (
     <div className="flex gap-5 justify-between items-center ">
       <div className="flex gap-5 justify-between items-center">
         <div className="h-4 w-4">
-          <img src="https://leetcode.com/_next/static/images/logo-dark-c96c407d175e36c81e236fcfdd682a0b.png" />
+          <Link to="/">
+            <img src="https://leetcode.com/_next/static/images/logo-dark-c96c407d175e36c81e236fcfdd682a0b.png" />
+          </Link>{" "}
         </div>
         <div className="flex  gap-5">
           <div className="text-stone-400 flex justify-center items-center gap-2">
@@ -95,7 +135,9 @@ const Topbar = ({ isContest, duration }) => {
           </svg>
           Submit
         </buton>
-        {isContest && <div>Timer</div>}
+        {isContest && (
+          <div className="bg-stone-800 rounded-sm flex justify-center items-center px-2 hover:bg-stone-700">{`${timer[0]}:${timer[1]}:${timer[2]}`}</div>
+        )}
       </div>
       <div>
         <div className="flex justify-center items-center gap-2">

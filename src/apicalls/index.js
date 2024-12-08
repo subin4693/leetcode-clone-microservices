@@ -17,7 +17,7 @@ export const signup = async (data) => {
     return res.data;
   } catch (error) {
     console.log(error);
-    return error.response.data;
+    throw error;
   }
 };
 
@@ -28,14 +28,14 @@ export const signin = async (data) => {
     return res.data;
   } catch (error) {
     console.log(error);
-    return error.response.data;
+    throw error;
   }
 };
 
-export const createTodo = async (data) => {
+export const createProblem = async (data) => {
   try {
     const token = getToken();
-    const res = await axios.post(BASE_URL + "/todos", data, {
+    const res = await axios.post(BASE_URL + "/problems", data, {
       headers: {
         token: token,
       },
@@ -43,66 +43,51 @@ export const createTodo = async (data) => {
     return res.data;
   } catch (error) {
     console.log(error);
-    return error.response.data;
+    throw error;
   }
 };
 
-export const deleteTodo = async (todoId) => {
+export const getProblem = async (problemId) => {
   try {
     const token = getToken();
-    const res = await axios.delete(`${BASE_URL}/todos/${todoId}`, {
+    const res = await axios.get(`${BASE_URL}/problems/${problemId}`, {
       headers: {
         token,
       },
     });
-    console.log(res);
+    return res;
   } catch (error) {
     console.log(error);
+    throw error;
   }
 };
 
-export const editTodo = async (todoId, data) => {
+export const getAllProblems = async () => {
   try {
-    const token = getToken();
-    const res = await axios.put(`${BASE_URL}/todos/${todoId}`, data, {
-      headers: {
-        token,
-      },
-    });
-    console.log(res);
+    const res = await axios.get(`${BASE_URL}/problems`);
+    return res;
   } catch (error) {
     console.log(error);
+    throw error;
   }
 };
 
-export const completedTodo = async (todoId) => {
+export const submitProblem = async (problemId, code) => {
   try {
     const token = getToken();
-    const res = await axios.patch(
-      `${BASE_URL}/todos/${todoId}`,
-      {},
+    const res = await axios.post(
+      `${BASE_URL}/problems/${problemId}`,
+      { code },
       {
         headers: {
           token: token,
         },
       }
     );
-    return res.data;
+    console.log(res);
+    return res;
   } catch (error) {
     console.log(error);
-  }
-};
-export const getTodos = async () => {
-  try {
-    const token = getToken();
-    const res = await axios.get(BASE_URL + "/todos", {
-      headers: {
-        token: token,
-      },
-    });
-    return res.data;
-  } catch (error) {
-    console.log(error);
-    return error.response.data;
+    throw error;
   }
 };

@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Tabs from "./components/Tabs";
 import { Link } from "react-router-dom";
 import Skletion from "../../components/Skletion";
+import { getAllProblems } from "../../apicalls";
 
 const ProblemSet = () => {
   const [categoryLoading, setCategoryLoading] = useState(false);
   const [problemLoading, setProblemLoading] = useState(false);
+  const [problems, setProblems] = useState([]);
   const tabs = [
     {
       _id: "all-topics",
@@ -29,45 +31,22 @@ const ProblemSet = () => {
     },
   ];
 
-  const rows = [
-    {
-      _id: "abc",
-      title: "Two sum",
-      difficulty: "Easy",
-      category: "Array",
-    },
-    {
-      _id: "dabc",
-      title: "Two sum",
-      difficulty: "Medium",
-      category: "Array",
-    },
-    {
-      _id: "abfc",
-      title: "Two sum",
-      difficulty: "Hard",
-      category: "Array",
-    },
+  const getData = async () => {
+    try {
+      setProblemLoading(true);
+      const res = await getAllProblems();
+      setProblems(res.data.data.problems);
+      setProblemLoading(false);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setProblemLoading(false);
+    }
+  };
 
-    {
-      _id: "absadfc",
-      title: "Two sum",
-      difficulty: "Easy",
-      category: "Array",
-    },
-    {
-      _id: "dsadfaabc",
-      title: "Two sum",
-      difficulty: "Medium",
-      category: "Array",
-    },
-    {
-      _id: "ar32bfc",
-      title: "Two sum",
-      difficulty: "Hard",
-      category: "Array",
-    },
-  ];
+  useEffect(() => {
+    getData();
+  }, []);
 
   const AddRow = ({ rowNum, title, difficulty, category, _id }) => {
     return (
@@ -78,11 +57,11 @@ const ProblemSet = () => {
         </td>
         <td
           className={`${
-            difficulty.toLowerCase() == "easy"
+            difficulty?.toLowerCase() == "easy"
               ? "text-green-500"
-              : difficulty.toLowerCase() == "medium"
+              : difficulty?.toLowerCase() == "medium"
               ? "text-yellow-400"
-              : difficulty.toLowerCase() == "hard"
+              : difficulty?.toLowerCase() == "hard"
               ? "text-red-400"
               : ""
           } `}
@@ -134,7 +113,7 @@ const ProblemSet = () => {
                   </td>
                 </tr>
               ))
-            : rows.map(({ _id, title, category, difficulty }, indexNo) => (
+            : problems.map(({ _id, title, category, difficulty }, indexNo) => (
                 <AddRow
                   _id={_id}
                   key={indexNo}

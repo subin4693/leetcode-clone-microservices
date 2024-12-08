@@ -4,8 +4,13 @@ import Problem from "./components/Problem";
 import Editor from "./components/Editor";
 import Testcase from "./components/Testcase";
 import Split from "react-split";
+import { getProblem, submitProblem } from "../../apicalls";
+import { useParams } from "react-router-dom";
 const Workspace = () => {
+  const { problemId } = useParams();
+
   const [code, setCode] = useState("");
+  const [submitLoading, setSubmitLoading] = useState(false);
 
   const [problem, setProblem] = useState({
     title: "1. Two Sum",
@@ -45,9 +50,41 @@ const Workspace = () => {
     duration: 2,
   });
 
+  const handleRun = () => {};
+  const handleSubmit = async () => {
+    try {
+      console.log("submiting");
+      setSubmitLoading(true);
+      const res = await submitProblem(problemId, code);
+      console.log(res.data.data);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setSubmitLoading(false);
+    }
+  };
+
+  const getData = async (problemId) => {
+    const res = await getProblem(problemId);
+    console.log(res.data.data.problem);
+
+    setProblem(res.data.data.problem);
+    setCode(res.data.data.problem.starterTemplate);
+  };
+
+  useEffect(() => {
+    getData(problemId);
+  }, [problemId]);
+
   return (
     <section className="bg-stone-900 min-h-screen text-white p-3 overflow-hidde">
-      <Topbar isContest={problem?.isContest} duration={problem?.duration} />
+      <Topbar
+        isContest={problem?.isContest}
+        duration={problem?.duration}
+        handleRun={handleRun}
+        handleSubmit={handleSubmit}
+        submitLoading={submitLoading}
+      />
       <div className="flex mt-3 overflow-y-hidde">
         <Split className="split w-full">
           <Problem

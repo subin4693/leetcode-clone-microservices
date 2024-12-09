@@ -6,9 +6,13 @@ import Testcase from "./components/Testcase";
 import Split from "react-split";
 import { getProblem, submitProblem } from "../../apicalls";
 import { useParams } from "react-router-dom";
+
+import socket from "../../utils/socket";
+
 const Workspace = () => {
   const { problemId } = useParams();
 
+  const [isConnected, setIsConnected] = useState();
   const [code, setCode] = useState("");
   const [submitLoading, setSubmitLoading] = useState(false);
 
@@ -53,14 +57,11 @@ const Workspace = () => {
   const handleRun = () => {};
   const handleSubmit = async () => {
     try {
-      console.log("submiting");
       setSubmitLoading(true);
       const res = await submitProblem(problemId, code);
       console.log(res.data.data);
     } catch (err) {
       console.log(err);
-    } finally {
-      setSubmitLoading(false);
     }
   };
 
@@ -75,6 +76,18 @@ const Workspace = () => {
   useEffect(() => {
     getData(problemId);
   }, [problemId]);
+
+  useEffect(() => {
+    console.log(socket);
+    socket.on("connection", () => {
+      console.log("socket connecte");
+    });
+    socket.emit("join", 18);
+    socket.off("message").on("message", (msg) => {
+      console.log(msg);
+      setSubmitLoading(false);
+    });
+  }, []);
 
   return (
     <section className="bg-stone-900 min-h-screen text-white p-3 overflow-hidde">
